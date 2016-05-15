@@ -43,16 +43,16 @@
      map = new Map("map", {
        basemap: "streets-night-vector", //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
        center: [-73.7761702, 41.0308234], // longitude, latitude THE REAL ONES ARE: -73.8291346, 40.88389 //not real: -122.086, 40.01803741
-       zoom: 15
+       zoom: 10
      });
 
      var circleSymb = new SimpleFillSymbol(
-       SimpleFillSymbol.STYLE_NULL,
+       SimpleFillSymbol.STYLE_SOLID,
        new SimpleLineSymbol(
          SimpleLineSymbol.STYLE_SHORTDASHDOTDOT,
          new Color([105, 105, 105]),
-         2
-       ), new Color([255, 255, 0, 0.25])
+         4
+       ), new Color([124, 252, 0, 0.5])
      );
 
      var lineSymb = new SimpleLineSymbol(
@@ -121,13 +121,19 @@
        circle = new Circle({
          center: evt.mapPoint,
          geodesic: true,
-         radius: 0.01,
+         radius: 0.02,
          radiusUnit: "esriMiles"
        });
+
+
 
        map.graphics.clear();
        var circleGraphic = new Graphic(circle, circleSymb);
        map.graphics.add(circleGraphic);
+
+
+       map.setLevel(17)
+       map.centerAt(evt.mapPoint);
 
        var query = new Query();
        query.geometry = circle;
@@ -179,7 +185,7 @@
               gap: 5
           });
 
-         chart.resize(630,160);
+         chart.resize(630, 150);
 
           // Define the data
           var chartData = dailyAverage;
